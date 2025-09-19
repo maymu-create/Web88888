@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Notebook & Tools</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+ <header>
+ //หัวเรื่อง//
+   <h1>Mini Note</h1>
+   <div style="margin-left:auto;display:flex;gap:8px;align-item:center"> 
+<Button onclick="window.location.href='page2.html'">สมุดบัญชี</button>
+</div>
+</header>
+
+//note//
+<section class="card">
+  <h2>โน้ต</h2>
+  <div class="notes-list" id="notesList"></div>
+  <button id="newNoteBtn" class="btn">สร้างโน้ตใหม่</button>
+  <textarea id="noteText" placeholder="เขียนโน้ตที่นี่..."></textarea>
+  <button id="saveNoteBtn" class="btn">บันทึกโน้ต</button>
+</section>
