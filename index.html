@@ -13,14 +13,91 @@
    <h1>Mini Note</h1>
    <div style="margin-left:auto;display:flex;gap:8px;align-item:center"> 
 <Button onclick="window.location.href='page2.html'">สมุดบัญชี</button>
+<div style="margin-right: auto;display: inline;gap:8px;align-items: center;"></div>
 </div>
 </header>
 
 //note//
-<section class="card">
-  <h2>โน้ต</h2>
-  <div class="notes-list" id="notesList"></div>
-  <button id="newNoteBtn" class="btn">สร้างโน้ตใหม่</button>
-  <textarea id="noteText" placeholder="เขียนโน้ตที่นี่..."></textarea>
-  <button id="saveNoteBtn" class="btn">บันทึกโน้ต</button>
-</section>
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #333;
+    }
+    textarea {
+      width: 300px;
+      height: 100px;
+      padding: 10px;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      font-size: 14px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: gray;
+      cursor: not-allowed;
+    }
+    #notes {
+      margin-top: 20px;
+      width: 320px;
+    }
+    .note {
+      background: white;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>โน้ตของฉัน</h1>
+  <textarea id="noteInput" placeholder="พิมพ์โน้ตที่นี่..."></textarea><br>
+  <button id="saveBtn">บันทึกโน้ต</button>
+
+  <div id="notes"></div>
+
+  <script>
+    const input = document.getElementById("noteInput");
+    const saveBtn = document.getElementById("saveBtn");
+    const notesDiv = document.getElementById("notes");
+    let notes = [];
+
+    saveBtn.addEventListener("click", () => {
+      const text = input.value.trim();
+      if (text && notes.length < 100) {
+        notes.push(text);
+        showNotes();
+        input.value = "";
+      }
+      if (notes.length >= 100) {
+        saveBtn.disabled = true;
+        alert("บันทึกโน้ตครบ 100 โน้ตแล้ว!");
+      }
+    });
+
+    function showNotes() {
+      notesDiv.innerHTML = "";
+      notes.forEach((note, index) => {
+        const noteEl = document.createElement("div");
+        noteEl.className = "note";
+        noteEl.textContent = `${index + 1}. ${note}`;
+        notesDiv.appendChild(noteEl);
+      });
+    }
+  </script>
+</body>
+</html>
