@@ -1,8 +1,20 @@
-    .table-wrap{overflow:auto}
-    table{width:100%;border-collapse:collapse}
-    th,td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left;font-size:14px}
-    th{background:transparent;color:var(--muted);font-weight:600}
-    .small{font-size:13px;color:var(--muted)}
-    .controls{display:flex;gap:8px;align-items:center}
-
-    footer{max-width:1280px;margin:0 auto;padding:14px 20px;color:var(--muted);font-size:13px}
+    :root {
+  --bg:#f6f7fb; --card:#ffffff; --accent:#6c5ce7; --muted:#97a0b8;
+}
+* {
+  box-sizing:border-box; font-family:Inter, system-ui, sans-serif;
+}
+body {
+  margin:0; background:var(--bg); color:#111;
+}
+header {
+  background:#fff; padding:16px 20px; display:flex; align-items:center;
+  border-bottom:1px solid #eee;
+}
+    .table-wrap { overflow:auto }
+    table { width:100%;border-collapse:collapse }
+    th,td { padding:8px;border-bottom:1px solid #eef2f7;text-align:left;font-size:14px }
+    th { background:transparent;color:var(--muted);font-weight:600 }
+    .small { font-size:13px;color:var(--muted) }
+    .controls { display:flex;gap:8px;align-items:center }
+    footer { max-width:1280px;margin:0 auto;padding:14px 20px;color:var(--muted);font-size:13px }

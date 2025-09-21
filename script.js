@@ -1,3 +1,7 @@
+   // Utilities
+const $ = id => document.getElementById(id);
+const saveToLS = (k,v) => localStorage.setItem('notebook:'+k, JSON.stringify(v));
+const loadFromLS = k => { try { return JSON.parse(localStorage.getItem('notebook:'+k)) } catch(e){return null} }
    let accounts = loadFromLS('accounts') || [];
     const tbody = document.querySelector('#accountTable tbody');
     function renderAccounts(){ tbody.innerHTML=''; let balance = 0;
