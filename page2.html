@@ -10,61 +10,51 @@
 </body>
 </html>    
 
-    <!-- ฟอร์มเพิ่ม/แก้ไขรายการ -->
-    <form id="entry-form">
-      <label>ประเภท
-        <select id="type">
-          <option value="income">รายได้</option>
-          <option value="expense">ค่าใช้จ่าย</option>
-        </select>
-      </label>
-      <label>วันที่
-        <input type="date" id="date">
-      </label>
-      <label>หมวดหมู่
-        <input type="text" id="category" placeholder="เช่น อาหาร, ค่าเดินทาง">
-      </label>
-      <label>รายละเอียด
-        <textarea id="description" rows="2"></textarea>
-      </label>
-      <label>จำนวน (บาท)
-        <input type="number" id="amount" step="0.01">
-      </label>
-      <button type="submit" class="primary" id="submit-btn">เพิ่มรายการ</button>
-      <button type="button" class="secondary" id="reset-btn">รีเซ็ต</button>
-    </form>
+<style>
+    body { font-family: sans-serif; background: #f8fafc; margin: 0; padding: 20px; }
+    .container { max-width: 700px; margin: auto; }
+    h1 { text-align: center; }
+    form, .list, .summary { background: #fff; padding: 15px; margin: 15px 0; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,.05); }
+    label { display: block; margin-top: 8px; font-size: 14px; }
+    input, select { width: 100%; padding: 6px; margin-top: 4px; border: 1px solid #ccc; border-radius: 6px; }
+    button { padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer; }
+    button.primary { background: #0284c7; color: white; }
+    button.danger { background: #dc2626; color: white; }
+    button.secondary { background: #e2e8f0; }
+    .entry { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #e5e7eb; }
+    .entry:last-child { border: none; }
+    .income { color: green; }
+    .expense { color: red; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>บัญชีรายรับ-รายจ่าย</h1><!-- ฟอร์มเพิ่มรายการ -->
+<form id="entry-form">
+  <label>ประเภท
+    <select id="type">
+      <option value="income">รายรับ</option>
+      <option value="expense">รายจ่าย</option>
+    </select>
+  </label>
+  <label>วันที่
+    <input type="date" id="date">
+  </label>
+  <label>จำนวน (บาท)
+    <input type="number" id="amount" step="0.01">
+  </label>
+  <button type="submit" class="primary" id="submit-btn">เพิ่มรายการ</button>
+  <button type="button" class="secondary" id="reset-btn">รีเซ็ต</button>
+</form>
 
-    <!-- ตัวกรอง -->
-    <div class="list">
-      <div>
-        <label>จาก <input type="date" id="filter-from"></label>
-        <label>ถึง <input type="date" id="filter-to"></label>
-        <label>ประเภท
-          <select id="filter-type">
-            <option value="all">ทั้งหมด</option>
-            <option value="income">รายได้</option>
-            <option value="expense">ค่าใช้จ่าย</option>
-          </select>
-        </label>
-        <button id="clear-filter" class="secondary">ล้าง</button>
-      </div>
-      <h3>รายการ</h3>
-      <div id="entries"></div>
-    </div>
+<!-- รายการ -->
+<div class="list">
+  <h3>รายการ</h3>
+  <div id="entries"></div>
+</div>
 
-    <!-- สรุปรวม -->
-    <div class="summary">
-      <h3>สรุป</h3>
-      <div id="totals"></div>
-    </div>
-
-    <!-- สรุปตามเดือน -->
-    <div class="monthly">
-      <h3>สรุปตามเดือน</h3>
-      <div id="monthly-summary"></div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<!-- สรุป -->
+<div class="summary">
+  <h3>สรุป</h3>
+  <div id="totals"></div>
+</div>
