@@ -1,20 +1,45 @@
-    :root {
-  --bg:#f6f7fb; --card:#ffffff; --accent:#6c5ce7; --muted:#97a0b8;
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
-* {
-  box-sizing:border-box; font-family:Inter, system-ui, sans-serif;
+
+.table-wrap {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #e6e9f0;
+  border-radius: 8px;
 }
-body {
-  margin:0; background:var(--bg); color:#111;
+
+#accountTable {
+  width: 100%;
+  border-collapse: collapse;
 }
-header {
-  background:#fff; padding:16px 20px; display:flex; align-items:center;
-  border-bottom:1px solid #eee;
+
+#accountTable th, 
+#accountTable td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #f1f3f8;
+  text-align: center;
 }
-    .table-wrap { overflow:auto }
-    table { width:100%;border-collapse:collapse }
-    th,td { padding:8px;border-bottom:1px solid #eef2f7;text-align:left;font-size:14px }
-    th { background:transparent;color:var(--muted);font-weight:600 }
-    .small { font-size:13px;color:var(--muted) }
-    .controls { display:flex;gap:8px;align-items:center }
-    footer { max-width:1280px;margin:0 auto;padding:14px 20px;color:var(--muted);font-size:13px }
+
+#accountTable th {
+  background: #f9fafc;
+  font-weight: bold;
+}
+
+.btn {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #4a90e2;
+  color: #4a90e2;
+}
