@@ -28,3 +28,18 @@ $('addRow').onclick=()=>{
 }
 tbody.onclick=e=>{ if(e.target.matches('button')){ accounts.splice(+e.target.dataset.i,1); renderAccounts(); } }
 renderAccounts();
+
+function toCSV(rows){ return rows.map(r=>r.map(c=>`\"${String(c||'').replace(/\"/g,'\"\"')}\"`).join(',')).join('\\n') }
+$('exportCSV').onclick=()=>{
+  const rows=[['Date','Description','Income','Expense']].concat(accounts.map(r=>[new Date(r.date).toLocaleString(),r.desc,r.income,r.expense]));
+  const blob=new Blob([toCSV(rows)],{type:'text/csv'});
+  const url=URL.createObjectURL(blob); const a=document.createElement('a');
+  a.href=url; a.download='accounts.csv'; a.click();
+
+  $('clearAll').onclick=()=>{ if(confirm('ล้างทั้งหมด?')){ localStorage.clear(); location.reload(); } }
+$('clearAccounts').onclick=()=>{ if(confirm('ล้างบัญชี?')){ accounts=[]; renderAccounts(); } }
+
+// Summary
+function refreshSummary(){ $('todoCount').textContent=todos.filter(t=>!t.done).length }
+refreshSummary();
+ 
