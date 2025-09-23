@@ -13,80 +13,99 @@
     .container{display:grid;grid-template-columns:360px 1fr 420px;gap:18px;padding:20px;max-width:1280px;margin:18px auto}
 
     /* column cards */
-    .card{background:var(--card);border-radius:14px;padding:14px;box-shadow:0 6px 18px rgba(28,36,64,0.06);min: height 140px;px}
+    .card{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(28,36,64,0.06);min-height:120px}
     .card h2{margin:0 0 10px 0;font-size:15px}
 
+    
     /* Calculator */
-.calc{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.calc-screen{grid-column:1/-1;background:#0f1724;color:white;padding:12px;border-radius:8px;font-size:20px;text-align:right}
-.calc-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.calc-buttons button{padding:12px;border-radius:8px;border:1px solid rgba(16,24,40,0.04);font-size:16px;cursor:pointer}
+    .calc{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .calc-screen{grid-column:1/-1;background:#0f1724;color:white;padding:12px;border-radius:8px;font-size:20px;text-align:right}
+    .calc-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .calc-buttons button{padding:12px;border-radius:8px;border:1px solid rgba(16,24,40,0.04);font-size:16px;cursor:pointer}
 
+    /* Accounting table */
+    .table-wrap{overflow:auto}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left;font-size:14px}
+    th{background:transparent;color:var(--muted);font-weight:600}
+    .small{font-size:13px;color:var(--muted)}
+    .controls{display:flex;gap:8px;align-items:center}
 
-/* Accounting table */
-.table-wrap{overflow:auto}
-table{width:100%;border-collapse:collapse}
-th,td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left;font-size:14px}
-th{background:transparent;color:var(--muted);font-weight:600}
-.small{font-size:13px;color:var(--muted)}
-.controls{display:flex;gap:8px;align-items:center}
+    footer{max-width:1280px;margin:0 auto;padding:14px 20px;color:var(--muted);font-size:13px}
 
-
-footer{max-width:1280px;margin:0 auto;padding:14px 20px;color:var(--muted);font-size:13px}
-
-
-/* responsive */
-@media (max-width:1000px){.container{grid-template-columns:1fr;padding:12px}.calc{grid-column:1/-1}.card{min-height:80px}}
-</style>
+    /* responsive */
+    @media (max-width:1000px){.container{grid-template-columns:1fr;padding:12px}.calc{grid-column:1/-1}.card{min-height:80px}}
+  </style>
 </head>
+<body>
+  <header>
+    <h1>บัญชี</h1>
+    <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+      <button id="exportAll" class="btn ghost">Export CSV</button>
+      <button id="clearAll" class="btn ghost">ล้างทั้งหมด</button>
+      <span class="small">(ข้อมูลเก็บไว้ในเบราว์เซอร์)</span>
+    </div>
+  </header>
+
+  <main class="container">
 
     <!-- Middle: Calculator & Quick stats -->
-     <button onclick="window.location.href='index.html'"> < </button>
-<button data-val="3">3</button>
-<button data-op="-">−</button>
+    <section class="card">
+      <h2>เครื่องคิดเลข</h2>
+      <div class="calc">
+        <div id="calcScreen" class="calc-screen">0</div>
+        <div class="calc-buttons" id="calcButtons">
+          <button data-val="7">7</button>
+          <button data-val="8">8</button>
+          <button data-val="9">9</button>
+          <button data-op="/">÷</button>
 
+          <button data-val="4">4</button>
+          <button data-val="5">5</button>
+          <button data-val="6">6</button>
+          <button data-op="*">×</button>
 
-<button data-val="0">0</button>
-<button id="dot" data-val=".">.</button>
-<button id="equals">=</button>
-<button data-op="+">+</button>
+          <button data-val="1">1</button>
+          <button data-val="2">2</button>
+          <button data-val="3">3</button>
+          <button data-op="-">−</button>
 
+          <button data-val="0">0</button>
+          <button id="dot" data-val=".">.</button>
+          <button id="equals">=</button>
+          <button data-op="+">+</button>
 
-<button id="clear" style="grid-column:span:2">C</button>
-<button id="back">←</button>
-<button id="memSave">MS</button>
-<button id="memRecall">MR</button>
-</div>
-</div>
+          <button id="clear" style="grid-column:span:2">C</button>
+          <button id="back">←</button>
+          <button id="memSave">MS</button>
+          <button id="memRecall">MR</button>
+        </div>
+      </div>
 
+      <hr style="margin:12px 0;border:none;border-top:1px solid #f1f3f8">
 
-<hr style="margin:12px 0;border:none;border-top:1px solid #f1f3f8">
+      <h2>สรุปด่วน</h2>
+      <div class="small">รายการคงเหลือ: <strong id="todoCount">0</strong></div>
+      <div class="small">ยอดเงินสุทธิ (บัญชี): <strong id="netBalance">0.00</strong></div>
+    </section>
 
-
-<h2>สรุปด่วน</h2>
-<div class="small">รายการคงเหลือ: <strong id="todoCount">0</strong></div>
-<div class="small">ยอดเงินสุทธิ (บัญชี): <strong id="netBalance">0.00</strong></div>
-</section>
-
-
-<!-- Right: Accounting table -->
-<aside class="card">
- <h2>ตารางบัญชี (Income / Expense)</h2>
-<div class="controls" style="margin-bottom:8px">
- <input id="desc" placeholder="คำอธิบาย" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e6e9f0" />
- <input id="income" placeholder="รายรับ" style="width:110px;padding:8px;border-radius:8px;border:1px solid #e6e9f0" />
- <input id="expense" placeholder="รายจ่าย" style="width:110px;padding:8px;border-radius:8px;border:1px solid #e6e9f0" />
- <button id="addRow" class="btn">เพิ่ม</button>
-</div>
-
-<div class="table-wrap">
- <table id="accountTable">
-   <thead>
-<tr><th>วันที่</th><th>คำอธิบาย</th><th>รายรับ</th><th>รายจ่าย</th><th>ยอดคงเหลือ</th><th></th></tr>
-   </thead>
-  <tbody></tbody>
- </table>
-</div>
+    <!-- Right: Accounting table -->
+    <aside class="card">
+      <h2>ตารางบัญชี (Income / Expense)</h2>
+      <div class="controls" style="margin-bottom:8px">
+        <input id="desc" placeholder="คำอธิบาย" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e6e9f0" />
+        <input id="income" placeholder="รายรับ" style="width:110px;padding:8px;border-radius:8px;border:1px solid #e6e9f0" />
+        <input id="expense" placeholder="รายจ่าย" style="width:110px;padding:8px;border-radius:8px;border:1px solid #e6e9f0" />
+        <button id="addRow" class="btn">เพิ่ม</button>
+      </div>
+      <div class="table-wrap">
+        <table id="accountTable">
+          <thead>
+            <tr><th>วันที่</th><th>คำอธิบาย</th><th>รายรับ</th><th>รายจ่าย</th><th>ยอดคงเหลือ</th><th></th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
       <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
         <button id="exportCSV" class="btn ghost">Export CSV</button>
         <button id="clearAccounts" class="btn ghost">ล้างบัญชี</button>
@@ -95,73 +114,95 @@ footer{max-width:1280px;margin:0 auto;padding:14px 20px;color:var(--muted);font-
     </aside>
   </main>
 
+  <footer>สร้างด้วยเครื่องมือหน้าเดียว — ข้อมูลเก็บใน Local Storage ของเบราว์เซอร์</footer>
+
   <script>
     /* ---------- Utilities ---------- */
     const $ = id => document.getElementById(id);
     const saveToLS = (k,v) => localStorage.setItem('notebook:'+k, JSON.stringify(v));
     const loadFromLS = k => { try { return JSON.parse(localStorage.getItem('notebook:'+k)) } catch(e){return null} }
 
+   
     /* ---------- Calculator ---------- */
-balance += (parseFloat(r.income)||0) - (parseFloat(r.expense)||0);
-const tr = document.createElement('tr');
-tr.innerHTML = `<td>${new Date(r.date).toLocaleDateString()}</td><td>${r.desc||''}</td><td>${r.income||''}</td><td>${r.expense||''}</td><td>${balance.toFixed(2)}</td><td><button data-i="${idx}" class='btn ghost' style='padding:6px'>ลบ</button></td>`;
-tbody.appendChild(tr);
-})
-$('totalAmount').textContent = balance.toFixed(2);
-$('netBalance').textContent = balance.toFixed(2);
-saveToLS('accounts',accounts);
-}
-$('addRow').addEventListener('click', ()=>{
-const desc = $('desc').value.trim(); const income = parseFloat($('income').value) || 0; const expense = parseFloat($('expense').value) || 0;
-if(!desc){ alert('กรุณาใส่คำอธิบาย'); return }
-accounts.push({date:Date.now(),desc, income: income? income.toFixed(2): '', expense: expense? expense.toFixed(2): ''});
-$('desc').value=''; $('income').value=''; $('expense').value=''; renderAccounts();
-})
-tbody.addEventListener('click', e=>{ if(e.target.matches('button')){ const i = parseInt(e.target.dataset.i); if(confirm('ลบแถวนี้?')){ accounts.splice(i,1); renderAccounts(); } } })
+    const calcScreen = $('calcScreen');
+    let calcExp = '';
+    let mem = loadFromLS('calc_mem') || 0;
+    function updateScreen(){ calcScreen.textContent = calcExp || '0' }
+    document.querySelectorAll('#calcButtons button').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const v = b.dataset.val; const op = b.dataset.op;
+        if(v!==undefined){ calcExp += v; updateScreen(); saveToLS('calc_exp',calcExp); return }
+        if(op!==undefined){ // operator
+          calcExp += op; updateScreen(); return
+        }
+        if(b.id==='equals'){ try{ const res = Function('return '+calcExp)(); calcExp = String(res); updateScreen(); saveToLS('calc_last',calcExp); }catch(e){ alert('สูตรไม่ถูกต้อง'); } }
+        if(b.id==='clear'){ calcExp=''; updateScreen(); }
+        if(b.id==='back'){ calcExp = calcExp.slice(0,-1); updateScreen(); }
+        if(b.id==='memSave'){ try{ const val = parseFloat(calcExp||0); mem = val; saveToLS('calc_mem',mem); alert('เก็บค่าในหน่วยความจำ: '+mem); }catch(e){}};
+        if(b.id==='memRecall'){ calcExp += String(mem); updateScreen(); }
+      })
+    })
+    calcExp = loadFromLS('calc_exp') || '' ; updateScreen();
 
+    /* ---------- Accounting ---------- */
+    let accounts = loadFromLS('accounts') || [];
+    const tbody = document.querySelector('#accountTable tbody');
+    function renderAccounts(){ tbody.innerHTML=''; let balance = 0;
+      accounts.forEach((r,idx)=>{
+        balance += (parseFloat(r.income)||0) - (parseFloat(r.expense)||0);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${new Date(r.date).toLocaleDateString()}</td><td>${r.desc||''}</td><td>${r.income||''}</td><td>${r.expense||''}</td><td>${balance.toFixed(2)}</td><td><button data-i="${idx}" class='btn ghost' style='padding:6px'>ลบ</button></td>`;
+        tbody.appendChild(tr);
+      })
+      $('totalAmount').textContent = balance.toFixed(2);
+      $('netBalance').textContent = balance.toFixed(2);
+      saveToLS('accounts',accounts);
+    }
+    $('addRow').addEventListener('click', ()=>{
+      const desc = $('desc').value.trim(); const income = parseFloat($('income').value) || 0; const expense = parseFloat($('expense').value) || 0;
+      if(!desc){ alert('กรุณาใส่คำอธิบาย'); return }
+      accounts.push({date:Date.now(),desc, income: income? income.toFixed(2): '', expense: expense? expense.toFixed(2): ''});
+      $('desc').value=''; $('income').value=''; $('expense').value=''; renderAccounts();
+    })
+    tbody.addEventListener('click', e=>{ if(e.target.matches('button')){ const i = parseInt(e.target.dataset.i); if(confirm('ลบแถวนี้?')){ accounts.splice(i,1); renderAccounts(); } } })
 
-/* Export CSV */
-function toCSV(rows){ return rows.map(r=> r.map(c=> '"'+String(c||'').replace(/"/g,'""')+'"').join(',')).join('\n') }
-$('exportCSV').addEventListener('click', ()=>{
-const rows = [['Date','Description','Income','Expense']].concat(accounts.map(r=>[ new Date(r.date).toLocaleString(), r.desc, r.income, r.expense ]));
-const csv = toCSV(rows);
-const blob = new Blob([csv], {type:'text/csv'});
-const url = URL.createObjectURL(blob);
-const a = document.createElement('a'); a.href=url; a.download='accounts.csv'; document.body.appendChild(a); a.click(); a.remove();
-})
-$('exportAll').addEventListener('click', ()=>{
-// combine notes, todos, accounts into one CSV-like text
-const notes = loadFromLS('note')||'';
-const todosSave = loadFromLS('todos') || [];
-const rows = [['Notes','', ''], [notes,'',''], [], ['Todos (done?','text','date']].concat(todosSave.map(t=>[t.done? 'YES':'NO', t.text, new Date(t.created||0).toLocaleString()]));
-const csv = toCSV(rows);
-const blob = new Blob([csv], {type:'text/csv'});
-const url = URL.createObjectURL(blob);
-const a = document.createElement('a'); a.href=url; a.download='notebook_export.csv'; document.body.appendChild(a); a.click(); a.remove();
-})
+    /* Export CSV */
+    function toCSV(rows){ return rows.map(r=> r.map(c=> '"'+String(c||'').replace(/"/g,'""')+'"').join(',')).join('\n') }
+    $('exportCSV').addEventListener('click', ()=>{
+      const rows = [['Date','Description','Income','Expense']].concat(accounts.map(r=>[ new Date(r.date).toLocaleString(), r.desc, r.income, r.expense ]));
+      const csv = toCSV(rows);
+      const blob = new Blob([csv], {type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='accounts.csv'; document.body.appendChild(a); a.click(); a.remove();
+    })
+    $('exportAll').addEventListener('click', ()=>{
+      // combine notes, todos, accounts into one CSV-like text
+      const notes = loadFromLS('note')||'';
+      const todosSave = loadFromLS('todos') || [];
+      const rows = [['Notes','', ''], [notes,'',''], [], ['Todos (done?','text','date']].concat(todosSave.map(t=>[t.done? 'YES':'NO', t.text, new Date(t.created||0).toLocaleString()]));
+      const csv = toCSV(rows);
+      const blob = new Blob([csv], {type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='notebook_export.csv'; document.body.appendChild(a); a.click(); a.remove();
+    })
 
+    /* Clear All */
+    $('clearAll').addEventListener('click', ()=>{
+      if(!confirm('ล้างข้อมูลทั้งหมดใน Local Storage?')) return;
+      localStorage.clear(); location.reload();
+    })
+    $('clearAccounts').addEventListener('click', ()=>{ if(confirm('ล้างรายการบัญชี?')){ accounts=[]; renderAccounts(); } })
 
-/* Clear All */
-$('clearAll').addEventListener('click', ()=>{
-if(!confirm('ล้างข้อมูลทั้งหมดใน Local Storage?')) return;
-localStorage.clear(); location.reload();
-})
-$('clearAccounts').addEventListener('click', ()=>{ if(confirm('ล้างรายการบัญชี?')){ accounts=[]; renderAccounts(); } })
+    renderAccounts();
 
+    /* ---------- Helpers ---------- */
+    function refreshSummary(){ $('todoCount').textContent = (todos.filter(t=>!t.done).length) }
+    refreshSummary();
 
-renderAccounts();
-
-
-/* ---------- Helpers ---------- */
-
-function refreshSummary(){ $('todoCount').textContent = (todos.filter(t=>!t.done).length) }
-refreshSummary();
-
-
-// save on unload
-window.addEventListener('beforeunload', ()=>{
-saveToLS('todos',todos); saveToLS('accounts',accounts); saveToLS('note', noteText.value); saveToLS('calc_exp', calcExp);
-})
-</script>
+    // save on unload
+    window.addEventListener('beforeunload', ()=>{
+      saveToLS('todos',todos); saveToLS('accounts',accounts); saveToLS('note', noteText.value); saveToLS('calc_exp', calcExp);
+    })
+  </script>
 </body>
 </html>
