@@ -1,88 +1,28 @@
-// เก็บข้อมูลไว้ใน Local Storage
-let accountData = JSON.parse(localStorage.getItem("accounts")) || [];
-let balance = 0;
+ let accounts = loadFromLS('accounts') || [];
+    const tbody = document.querySelector('#accountTable tbody');
+    function renderAccounts(){ tbody.innerHTML=''; let balance = 0;
+      accounts.forEach((r,idx)=>{
+        balance += (parseFloat(r.income)||0) - (parseFloat(r.expense)||0);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${new Date(r.date).toLocaleDateString()}</td><td>${r.desc||''}</td><td>${r.income||''}</td><td>${r.expense||''}</td><td>${balance.toFixed(2)}</td><td><button data-i="${idx}" class='btn ghost' style='padding:6px'>ลบ</button></td>`;
+        tbody.appendChild(tr);
+      })
+      $('totalAmount').textContent = balance.toFixed(2);
+      $('netBalance').textContent = balance.toFixed(2);
+      saveToLS('accounts',accounts);
+    }
+    $('addRow').addEventListener('click', ()=>{
+      const desc = $('desc').value.trim(); const income = parseFloat($('income').value) || 0; const expense = parseFloat($('expense').value) || 0;
+      if(!desc){ alert('กรุณาใส่คำอธิบาย'); return }
+      accounts.push({date:Date.now(),desc, income: income? income.toFixed(2): '', expense: expense? expense.toFixed(2): ''});
+      $('desc').value=''; $('income').value=''; $('expense').value=''; renderAccounts();
+    })
+    tbody.addEventListener('click', e=>{ if(e.target.matches('button')){ const i = parseInt(e.target.dataset.i); if(confirm('ลบแถวนี้?')){ accounts.splice(i,1); renderAccounts(); } } })
+/* Clear All */
+    $('clearAll').addEventListener('click', ()=>{
+      if(!confirm('ล้างข้อมูลทั้งหมดใน Local Storage?')) return;
+      localStorage.clear(); location.reload();
+    })
+    $('clearAccounts').addEventListener('click', ()=>{ if(confirm('ล้างรายการบัญชี?')){ accounts=[]; renderAccounts(); } })
 
-// ฟังก์ชันเพิ่มแถวใหม่
-function addRow() {
-  const desc = document.getElementById("desc").value.trim();
-  const income = parseFloat(document.getElementById("income").value) || 0;
-  const expense = parseFloat(document.getElementById("expense").value) || 0;
-  const date = new Date().toLocaleDateString();
-
-  balance += income - expense;
-
-  const row = {
-    date, desc, income, expense, balance
-  };
-
-  accountData.push(row);
-  saveData();
-  renderTable();
-  
-  // เคลียร์ช่อง input
-  document.getElementById("desc").value = "";
-  document.getElementById("income").value = "";
-  document.getElementById("expense").value = "";
-}
-
-// ฟังก์ชันแสดงผลในตาราง
-function renderTable() {
-  const tbody = document.querySelector("#accountTable tbody");
-  tbody.innerHTML = "";
-  balance = 0;
-
-  accountData.forEach((item, index) => {
-    balance += item.income - item.expense;
-
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${item.date}</td>
-      <td>${item.desc}</td>
-      <td>${item.income.toFixed(2)}</td>
-      <td>${item.expense.toFixed(2)}</td>
-      <td>${balance.toFixed(2)}</td>
-      <td><button onclick="deleteRow(${index})">ลบ</button></td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  document.getElementById("totalAmount").textContent = balance.toFixed(2);
-}
-
-// ลบแถว
-function deleteRow(index) {
-  accountData.splice(index, 1);
-  saveData();
-  renderTable();
-}
-
-// ล้างบัญชี
-document.getElementById("clearAccounts").onclick = () => {
-  if (confirm("คุณต้องการล้างบัญชีทั้งหมดหรือไม่?")) {
-    accountData = [];
-    saveData();
-    renderTable();
-  }
-};
-
-// Export CSV
-document.getElementById("exportCSV").onclick = () => {
-  let csv = "วันที่,คำอธิบาย,รายรับ,รายจ่าย,ยอดคงเหลือ\n";
-  accountData.forEach(r => {
-    csv += `${r.date},${r.desc},${r.income},${r.expense},${r.balance}\n`;
-  });
-  const blob = new Blob([csv], { type: "text/csv" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "account.csv";
-  a.click();
-};
-
-// Save ลง Local Storage
-function saveData() {
-  localStorage.setItem("accounts", JSON.stringify(accountData));
-}
-
-// โหลดตอนเปิดหน้าเว็บ
-document.getElementById("addRow").onclick = addRow;
-window.onload = renderTable;
+    renderAccounts();
