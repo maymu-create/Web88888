@@ -64,8 +64,14 @@ button {
 </head>
 <body>
   <h1>โน้ตของฉัน</h1>
-  <textarea id="noteInput" placeholder="พิมพ์โน้ตที่นี่..."></textarea><br>
-  <button id="saveBtn">บันทึกโน้ต</button>
+  <div class="notes-area">
+<textarea id="noteText" placeholder="เขียนโน้ตที่นี่..."></textarea>
+<div class="notes-actions">
+<button id="saveNote" class="btn">บันทึกโน้ต</button>
+<button id="newNote" class="btn ghost">โน้ตใหม่</button>
+<div style="margin-left:auto;color:var(--muted);font-size:13px">บันทึกอัตโนมัติเมื่อแก้ไข</div>
+</div>
+</div>
 
   <div id="notes"></div>
 
