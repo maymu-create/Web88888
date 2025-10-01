@@ -63,17 +63,18 @@ button {
   </style>
 </head>
 <body>
+  <section class="card">
   <h1>โน้ตของฉัน</h1>
   <div class="notes-area">
 <textarea id="noteText" placeholder="เขียนโน้ตที่นี่..."></textarea>
 <div class="notes-actions">
 <button id="saveNote" class="btn">บันทึกโน้ต</button>
 <button id="newNote" class="btn ghost">โน้ตใหม่</button>
-<div style="margin-left:auto;color:var(--muted);font-size:13px">บันทึกอัตโนมัติเมื่อแก้ไข</div>
-</div>
 </div>
 
   <div id="notes"></div>
+  <hr style="margin:12px 0;border:none;border-top:1px solid #f1f3f8">
+</section>
 
   <script>
     const input = document.getElementById("noteInput");
