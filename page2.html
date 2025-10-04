@@ -15,7 +15,7 @@
 
     /* เครื่องคิดเลข */
     .calc{display:grid;grid-template-columns:1fr;gap:8px;}
-    .calc-screen{background:#ffffff;color:rgb(255, 205, 217);padding:12px;border-radius:8px;font-size:20px;text-align:right}
+    .calc-screen{background:#ffcfd7;color:rgb(255, 255, 255);padding:12px;border-radius:8px;font-size:20px;text-align:right}
     .calc-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
     .calc-buttons button{padding:12px;border-radius:8px;border:1px solid rgb(255, 255, 255);background: #ffd9e1; color:#ffffff;font-size:16px;cursor:pointer}
 
@@ -65,24 +65,36 @@
     <!-- บัญชี -->
     <div class="card">
       <h2>บัญชีรายรับ - รายจ่าย</h2>
-      <div class="controls">
-        <input id="desc" type="text" placeholder="คำอธิบาย">
-        <input id="amount" type="number" placeholder="จำนวนเงิน">
-        <button onclick="addEntry()">เพิ่ม</button>
-        <button onclick="saveData()">บันทึก</button>
-        <button onclick="loadData()">ดูบัญชีที่เซฟ</button>
-      </div>
-      <div class="table-wrap">
-        <table id="account-table">
-          <thead>
-            <tr><th>คำอธิบาย</th><th>จำนวนเงิน</th><th>จัดการ</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
+      <input id="desc" type="text" placeholder="คำอธิบาย">
+  <input id="amount" type="number" placeholder="จำนวนเงิน">
+  <select id="type">
+    <option value="income">รายรับ</option>
+    <option value="expense">รายจ่าย</option>
+  </select>
+  <button onclick="addEntry()">บันทึก</button>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>คำอธิบาย</th>
+        <th>รายรับ</th>
+        <th>รายจ่าย</th>
+        <th>เงินคงเหลือ</th>
+        <th>ลบ</th>
+      </tr>
+    </thead>
+    <tbody id="list"></tbody>
+    <tfoot>
+      <tr>
+        <td>รวม</td>
+        <td id="total-income">0</td>
+        <td id="total-expense">0</td>
+        <td id="balance">0</td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
 
 <script>
 /* ---- เครื่องคิดเลข ---- */
@@ -109,47 +121,58 @@ function clearCalc(){
 }
 
 /* ---- บัญชี ---- */
-let tableBody = document.querySelector("#account-table tbody");
-let entries = JSON.parse(localStorage.getItem("entries")) || [];
+let list = document.getElementById("list");
+let totalIncome = document.getElementById("total-income");
+let totalExpense = document.getElementById("total-expense");
+let balanceCell = document.getElementById("balance");
 
-function renderTable(){
-  tableBody.innerHTML = "";
-  entries.forEach((e, i) => {
-    let row = `<tr>
-      <td>${e.desc}</td>
-      <td>${e.amount}</td>
-      <td><span class="delete-btn" onclick="deleteEntry(${i})">ลบ</span></td>
+let data = JSON.parse(localStorage.getItem("account")) || [];
+
+function render(){
+  list.innerHTML = "";
+  let income = 0, expense = 0, balance = 0;
+
+  data.forEach((item,i)=>{
+    if(item.type==="income"){ 
+      income += Number(item.amount);
+      balance += Number(item.amount);
+    } else {
+      expense += Number(item.amount);
+      balance -= Number(item.amount);
+    }
+    list.innerHTML += `<tr>
+      <td>${item.desc}</td>
+      <td>${item.type==="income"?item.amount:"-"}</td>
+      <td>${item.type==="expense"?item.amount:"-"}</td>
+      <td>${balance}</td>
+      <td><span class="delete" onclick="del(${i})">ลบ</span></td>
     </tr>`;
-    tableBody.innerHTML += row;
   });
+
+  totalIncome.textContent = income;
+  totalExpense.textContent = expense;
+  balanceCell.textContent = income - expense;
 }
-renderTable();
+render();
 
 function addEntry(){
   let desc = document.getElementById("desc").value;
   let amount = document.getElementById("amount").value;
+  let type = document.getElementById("type").value;
+
   if(desc && amount){
-    entries.push({desc, amount});
-    renderTable();
-    document.getElementById("desc").value = "";
-    document.getElementById("amount").value = "";
+    data.push({desc, amount, type});
+    localStorage.setItem("account",JSON.stringify(data));
+    render();
+    document.getElementById("desc").value="";
+    document.getElementById("amount").value="";
   }
 }
 
-function deleteEntry(i){
-  entries.splice(i,1);
-  renderTable();
-}
-
-function saveData(){
-  localStorage.setItem("entries", JSON.stringify(entries));
-  alert("✅ บันทึกข้อมูลเรียบร้อยแล้ว");
-}
-
-function loadData(){
-  entries = JSON.parse(localStorage.getItem("entries")) || [];
-  renderTable();
-  alert("📂 โหลดข้อมูลที่บันทึกไว้แล้ว");
+function del(i){
+  data.splice(i,1);
+  localStorage.setItem("account",JSON.stringify(data));
+  render();
 }
 </script>
 </body>
