@@ -4,29 +4,29 @@
   <meta charset="UTF-8">
   <title>เครื่องคิดเลข + บัญชีรายรับรายจ่าย</title>
   <style>
-    :root{--bg:#ffdbe3;--card:#ffffff;--accent:#ffcedd;--muted:#ffb1c8}
+    :root{--bg:#ffffff;--card:#ffffff;--accent:#ffcedd;--muted:#ffb1c8}
     *{box-sizing:border-box;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, 'Noto Sans', 'Helvetica Neue', Arial}
-    body{margin:0;background:var(--bg);color:#ffc9da}
-    header{background:#ffccd7;color: #ffffff; padding:16px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid rgba(255, 220, 232, 0.171)}
+    body{margin:0;background:var(--bg);color:#ffffff}
+    header{background:#ffccd7;color: #ffffff; padding:16px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid rgb(255, 221, 233)}
     header h1{font-size:18px;margin:0}
     .container{display:grid;grid-template-columns:1fr;gap:18px;padding:20px;max-width:600px;margin:18px auto}
     .card{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(255, 164, 199, 0.301);min-height:80px}
     .card h2{margin:0 0 10px 0;font-size:15px}
 
     /* เครื่องคิดเลข */
-    .calc{display:grid;grid-template-columns:1fr;gap:8px}
-    .calc-screen{background:#ffc8d4;color:white;padding:12px;border-radius:8px;font-size:20px;text-align:right}
+    .calc{display:grid;grid-template-columns:1fr;gap:8px;background: #ffc8d4;}
+    .calc-screen{background:#ffffff;color:rgb(255, 205, 217);padding:12px;border-radius:8px;font-size:20px;text-align:right}
     .calc-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-    .calc-buttons button{padding:12px;border-radius:8px;border:1px solid rgb(255, 195, 214);color:#ffffff;font-size:16px;cursor:pointer}
+    .calc-buttons button{padding:12px;border-radius:8px;border:1px solid rgb(255, 255, 255);background: #ffffff; color:#ffd5de;font-size:16px;cursor:pointer}
 
     /* บัญชี */
-    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;background: #ffc8d4;}
     .controls input{padding:8px;border:1px solid #ffffff;border-radius:6px}
-    .controls button{padding:8px 12px;border-radius:6px;border:1px solid #ffd5e3;background:#ffffff;color:#ffd7e4;cursor:pointer}
+    .controls button{padding:8px 12px;border-radius:6px;border:1px solid #e7e7e7;background:#ffffff;color:#ffd8e1;cursor:pointer}
     table{width:100%;border-collapse:collapse}
-    th,td{padding:8px;border-bottom:1px solid #ffffff;text-align:left;font-size:14px}
-    th{color:var(--muted);font-weight:600}
-    .delete-btn{color:#ffd4dc;cursor:pointer}
+    th,td{padding:8px;border-bottom:1px solid #e7e7e7;text-align:left;font-size:14px}
+    th{color:var(--card);font-weight:600}
+    .delete-btn{color:#ffffff;cursor:pointer}
   </style>
 </head>
 <body>
