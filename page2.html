@@ -11,7 +11,7 @@
   </html>
 
   <style>
-    :root{--bg:#f6f7fb;--card:#ffffff;--accent:#ffcedd;--muted:#ffffff}
+    :root{--bg:#f6f7fb;--card:#ffffff;--accent:#ffcedd;--muted:#ffb1c8}
     *{box-sizing:border-box;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, 'Noto Sans', 'Helvetica Neue', Arial}
     body{margin:0;background:var(--bg);color:#ffb1c8}
     header{background:linear-gradient(90deg, #ffffff 0%, #fff 100%);padding:16px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid rgba(16,24,40,0.04)}
@@ -24,15 +24,15 @@
 
     
     /* Calculator */
-    .calc{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .calc-screen{grid-column:1/-1;background:#0f1724;color:white;padding:12px;border-radius:8px;font-size:20px;text-align:right}
+    .calc{display:grid;grid-template-columns:2fr 2fr;gap:8px}
+    .calc-screen{grid-column:1/-1;background:#ffabbd;color:white;padding:12px;border-radius:8px;font-size:20px;text-align:right}
     .calc-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-    .calc-buttons button{padding:12px;border-radius:8px;border:1px solid rgba(16,24,40,0.04);font-size:16px;cursor:pointer}
+    .calc-buttons button{padding:12px;border-radius:8px;border:1px solid rgba(255, 217, 229, 0.534);color: #ffabbd; font-size:16px;cursor:pointer}
 
     /* Accounting table */
     .table-wrap{overflow:auto}
     table{width:100%;border-collapse:collapse}
-    th,td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left;font-size:14px}
+    th,td{padding:8px;border-bottom:1px solid #fff0f6;text-align:left;font-size:14px}
     th{background:transparent;color:var(--muted);font-weight:600}
     .small{font-size:13px;color:var(--muted)}
     .controls{display:flex;gap:8px;align-items:center}
